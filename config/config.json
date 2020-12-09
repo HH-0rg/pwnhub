@@ -1,3 +1,6 @@
 {
-    "database": "pwnhub.db"
+    "database": "pwnhub.db",
+    "nakadashi": {
+        "port": 1337
+    }
 }
