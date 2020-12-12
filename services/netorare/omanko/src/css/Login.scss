@@ -1,0 +1,83 @@
+@import "globals.scss";
+
+.Login {
+  margin: 0 20vw;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.Login .Text {
+  flex-grow: 2;
+}
+.Login .Form {
+  font-family: Arial, Helvetica, sans-serif;
+  flex-grow: 1;
+  // background-color: $ph-dark-gray;
+  padding: 1rem;
+  border: solid 1px $ph-dark-gray;
+}
+
+.Login .Form .Title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.7rem;
+}
+
+.Login .Form .Subtitle {
+  font-size: 1rem;
+  font-weight: 100;
+  color: $ph-gray;
+  margin-bottom: 4rem;
+}
+
+.Login .Form input {
+  display: block;
+  width: 100%;
+  margin: 7px auto;
+  background-color: $ph-bg-gray;
+  margin-bottom:1.2rem;
+
+  box-sizing: border-box;
+  border-radius: 2px;
+  border: 1px solid #555;
+  background: rgba(0,0,0,.9);
+  padding: 12px 15px;
+  font-size: 17px;
+  color: #ccc;
+}
+
+.Login .Form .Buttons {
+  display: flex;
+  font-size: 1rem;
+  margin: 1rem 0;
+  margin-top: 4rem;
+  align-items: center;
+}
+
+.Login .Form .Buttons button {
+  flex-grow: 1.7;
+
+  padding: 15px 20px;
+  // vertical-align: middle;
+  margin-right: 20px;
+  border-radius: 5px;
+  background-color: $ph-highlight;
+  border: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Arial;
+
+  // margin: 20px 20px 20px 0;
+}
+.Login .Form .Buttons .Signup {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.Login .Form .Buttons .Signup .SignupLink {
+  color: $ph-highlight;
+}
+
+// .Login .Form .Buttons button 

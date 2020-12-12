@@ -1,0 +1,13 @@
+@import "globals.scss";
+
+.Header {
+  background-color: $ph-bg-gray;
+  // display: flex;
+  // justify-items: center;
+  margin-bottom: 4rem;
+}
+
+.Header .Logo {
+  width: 10vw;
+  padding: 1rem 5vw;
+}
