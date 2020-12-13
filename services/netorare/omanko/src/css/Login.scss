@@ -9,6 +9,7 @@
 }
 
 .Login .Text {
+  margin-top: 3rem;
   flex-grow: 2;
 }
 .Login .Form {
@@ -56,7 +57,7 @@
   align-items: center;
 }
 
-.Login .Form .Buttons button {
+.Login .Form .Buttons #LoginButton {
   flex-grow: 1.7;
 
   padding: 15px 20px;
@@ -68,6 +69,8 @@
   font-size: 1rem;
   font-weight: bold;
   font-family: Arial;
+  text-decoration: none;
+  color: $ph-dark-gray;
 
   // margin: 20px 20px 20px 0;
 }

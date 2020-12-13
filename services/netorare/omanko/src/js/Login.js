@@ -1,7 +1,9 @@
-import logo from "../assets/logo.png";
 import "../css/Login.scss";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 function Login() {
+  const [usernameInput, setUsernameInput] = useState("");
   return (
     <div className="Login">
       <div className="Text">
@@ -13,15 +15,27 @@ function Login() {
         <div className="Title">Login</div>
         <div className="Subtitle">Access your Pwner/Corporate Account here</div>
         <form>
-          <input type="text" placeholder="Username" />
+          <input
+            type="text"
+            id="username"
+            value={usernameInput}
+            onChange={e => setUsernameInput(e.target.value)}
+            placeholder="Username"
+          />
           <input type="password" placeholder="Password" />
           <div className="Buttons">
-            <button>Log In</button>
+            <Link
+              id="LoginButton"
+              to={{
+                pathname: "/home",
+                username: usernameInput,
+              }}
+            >
+              Log In
+            </Link>
             <div className="Signup">
               Or&ensp;
-              <span className="SignupLink">
-                Sign Up
-              </span>
+              <span className="SignupLink">Sign Up</span>
             </div>
           </div>
         </form>
