@@ -29,7 +29,7 @@ def login():
     data = []
     for r in rv:
         data.append({'exploit': r['exploit'], 'gist': r['gist'], 'name': r['name'], 'pa_token': r['pa_token'], 'test_cases': str(r['test_cases']),
-        'pwner_agrees': r['pwner_agrees'], 'corporate_agrees': r['corporate_agrees'], 'passsed': r['passed']})
+        'pwner_agrees': r['pwner_agrees'], 'corporate_agrees': r['corporate_agrees'], 'passed': r['passed']})
     print(data)
     return jsonify(data)
 

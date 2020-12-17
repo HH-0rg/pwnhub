@@ -6,8 +6,7 @@ import axios from "axios";
 import config from "./config";
 
 function Pwner({ db }) {
-  const [isAgreed, setIsAgreed] = useState(0);
-  
+  // const [isAgreed, setIsAgreed] = useState(0);
 
   // const handleFuckingShit = (i) => {
   //   console.log(i, isAgreed);
@@ -17,21 +16,21 @@ function Pwner({ db }) {
   //   setIsAgreed(foo);
   //   console.log(i, isAgreed, foo);
   // };
-  const [receiverAddress, setReceiverAddress] = useState("")
-  const [amount, setAmount] = useState("5000000000000000000")
+  const [receiverAddress, setReceiverAddress] = useState("");
+  const [amount, setAmount] = useState("5000000000000000000");
 
   useEffect(() => {
-    activeMen()
+    activeMen();
     portis.onLogin((receiverAddress) => {
       setReceiverAddress(receiverAddress);
     });
     portis.onActiveWalletChanged((receiverAddress) => {
       setReceiverAddress(receiverAddress);
     });
-  }, [])
+  }, []);
   const activeMen = () => {
     portis.showPortis();
-  }
+  };
 
   const updateDB = (name, test_cases) => {
     axios.get(config.ochinchin + "pwner_agrees", {
@@ -41,7 +40,7 @@ function Pwner({ db }) {
     });
   };
 
-  console.log(receiverAddress)
+  console.log(receiverAddress);
   const transfer = async () => {
     // let gas = web3.eth.estimateGas({
     //   from: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
@@ -49,7 +48,7 @@ function Pwner({ db }) {
     //   amount: web3.utils.toWei(amount, "ether"),
     // });
 
-    console.log(receiverAddress, amount)
+    console.log(receiverAddress, amount);
 
     let signedTransaction = await web3.eth.accounts.signTransaction(
       { to: receiverAddress, value: amount, gas: 200000 },
@@ -60,7 +59,7 @@ function Pwner({ db }) {
     );
 
     console.log(terana);
-  }
+  };
 
   return (
     <div className="Pwner">
@@ -86,19 +85,54 @@ function Pwner({ db }) {
                       Test Cases Repo: {entry.test_cases}
                     </div>
                   </div>
-                  {!isAgreed || i != 0 ? (
-                    <button
-                      onClick={() => {if(i==0) {setIsAgreed(true); updateDB(entry.name); transfer()}}}
-                      className="Button"
-                    >
-                      I Agree
-                    </button>
-                  ) : (
-                    <div className="Entry">
-                      {" "}
-                      Waiting for response from Corporate/Service{" "}
-                    </div>
-                  )}
+                  {(() => {
+                    if (i == 0) {
+                      console.log(entry)
+                      if (entry.pwner_agrees == "None") {
+                        return (
+                          <button
+                            onClick={() => {
+                              if (i == 0) {
+                                updateDB(entry.name);
+                              }
+                            }}
+                            className="Button"
+                          >
+                            I Agree
+                          </button>
+                        );
+                      } else {
+                        if (!entry.passed) {
+                          console.log(entry.passed, "YE DEKH")
+                          return (
+                            <div className="Entry">
+                              {" "}
+                              Waiting for response from Corporate/Service{" "}
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <>
+                              <div className="Entry">
+                                {" "}
+                                Test Cases Pass Status: {entry.passed}
+                              </div>
+                              {entry.passed == "True" && (
+                                <button
+                                  onClick={() => {
+                                    transfer();
+                                  }}
+                                  className="Button"
+                                >
+                                  Claim
+                                </button>
+                              )}
+                            </>
+                          );
+                        }
+                      }
+                    }
+                  })()}
                 </>
               )}
             </div>
