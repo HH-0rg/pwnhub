@@ -28,9 +28,40 @@ def login():
     cur.close()
     data = []
     for r in rv:
-        data.append({'exploit': r['exploit'], 'gist': r['gist'], 'name': r['name'], 'pa_token': r['pa_token'], 'test_cases': str(r['test_cases'])})
+        data.append({'exploit': r['exploit'], 'gist': r['gist'], 'name': r['name'], 'pa_token': r['pa_token'], 'test_cases': str(r['test_cases']),
+        'pwner_agrees': r['pwner_agrees'], 'corporate_agrees': r['corporate_agrees'], 'passsed': r['passed']})
     print(data)
     return jsonify(data)
+
+@app.route('/pwner_agrees')
+def pwner_agrees():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE pwner SET pwner_agrees=1 where name=?", (request.args.get('name'),))
+    conn.commit()
+    conn.close()
+    return {}, 200 
+
+@app.route('/corporate_agrees')
+def corporate_agrees():
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE pwner SET corporate_agrees=1, test_cases=? where name=?", (request.args.get('test_cases'), request.args.get('name'),))
+    conn.commit()
+    conn.close()
+    return {}, 200 
+
+@app.route('/passed')
+def passed():
+    status = "False" 
+    if request.args.get('status') == '1':
+        status = "True"
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("UPDATE pwner SET passed=? where name=?", (request.args.get('name'), status))
+    conn.commit()
+    conn.close()
+    return {}, 200 
 
 @app.route('/new', methods=['POST'])
 def new():

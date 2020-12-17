@@ -1,11 +1,12 @@
 import "../css/Pwner.scss";
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { web3, portis } from "../services/web3";
-
+import { web3, portis } from "../services/service";
+import axios from "axios";
+import config from "./config";
 
 function Pwner({ db }) {
-  const [isAgreed, setIsAgreed] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(0);
   
 
   // const handleFuckingShit = (i) => {
@@ -17,9 +18,10 @@ function Pwner({ db }) {
   //   console.log(i, isAgreed, foo);
   // };
   const [receiverAddress, setReceiverAddress] = useState("")
-  const [amount, setAmount] = useState("")
+  const [amount, setAmount] = useState("5000000000000000000")
 
   useEffect(() => {
+    activeMen()
     portis.onLogin((receiverAddress) => {
       setReceiverAddress(receiverAddress);
     });
@@ -27,16 +29,30 @@ function Pwner({ db }) {
       setReceiverAddress(receiverAddress);
     });
   }, [])
+  const activeMen = () => {
+    portis.showPortis();
+  }
 
-  const transfer = async () => {
-    let gas = web3.eth.estimateGas({
-      from: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
-      to: receiverAddress,
-      amount: web3.toWei(amount, "ether"),
+  const updateDB = (name, test_cases) => {
+    axios.get(config.ochinchin + "pwner_agrees", {
+      params: {
+        name: name,
+      },
     });
+  };
+
+  console.log(receiverAddress)
+  const transfer = async () => {
+    // let gas = web3.eth.estimateGas({
+    //   from: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
+    //   to: receiverAddress,
+    //   amount: web3.utils.toWei(amount, "ether"),
+    // });
+
+    console.log(receiverAddress, amount)
 
     let signedTransaction = await web3.eth.accounts.signTransaction(
-      { to: receiverAddress, value: amount, gas: gas },
+      { to: receiverAddress, value: amount, gas: 200000 },
       "0x5a4d83e7950c63dbd79b122b36328bb2682787fbd90f756af3809e1df862ef72"
     );
     let terana = await web3.eth.sendSignedTransaction(
@@ -72,7 +88,7 @@ function Pwner({ db }) {
                   </div>
                   {!isAgreed || i != 0 ? (
                     <button
-                      onClick={() => {if(i==0) {setIsAgreed(true); transfer}}}
+                      onClick={() => {if(i==0) {setIsAgreed(true); updateDB(entry.name); transfer()}}}
                       className="Button"
                     >
                       I Agree
