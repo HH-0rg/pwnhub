@@ -21,14 +21,30 @@ def close_connection(exception):
 
 @app.route('/login')
 def login():
-    username = request.args.get('username')
-    cur = get_db().execute("Select * from users WHERE username=?", (username,))
+    # username = request.args.get('username')
+    # cur = get_db().execute("Select * from users WHERE username=?", (username,))
+    cur = get_db().execute("Select * from pwner")
     rv = cur.fetchall()
     cur.close()
     data = []
     for r in rv:
-        data.append({'exploit': r['exploit'], 'gist': r['gist']})
+        data.append({'exploit': r['exploit'], 'gist': r['gist'], 'name': r['name'], 'pa_token': r['pa_token'], 'test_cases': str(r['test_cases'])})
+    print(data)
     return jsonify(data)
+
+@app.route('/new', methods=['POST'])
+def new():
+    print("#####################")
+    print(request.json)
+    name, exploit, paToken, gist = request.json.get('name'), request.json.get('exploit'), request.json.get('paToken'), request.json.get('gist')
+    # cur = get_db().execute("Select * from users WHERE username=?", (username,))
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("Insert into pwner values(?,?,?,?,'')", (name, exploit, gist, paToken,))
+    conn.commit()
+    conn.close()
+    # cur = get_db().execute("Insert into pwner values(?,?,?,?)", (name, exploit, gist, paToken,))
+    return {}, 200 
 
 # @app.route('/')
 # def hello_world():
