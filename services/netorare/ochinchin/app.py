@@ -1,9 +1,10 @@
 from flask import Flask, request, g, jsonify
 import sqlite3
 app = Flask(__name__)
+import requests
 
 DATABASE = '../../../storage/pwnhub.db'
-
+nakadashi = "http://localhost:8080/deploy/"
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -35,11 +36,34 @@ def login():
 
 @app.route('/pwner_agrees')
 def pwner_agrees():
+    name = request.args.get('name')
+
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("UPDATE pwner SET pwner_agrees=1 where name=?", (request.args.get('name'),))
+    cur.execute("UPDATE pwner SET pwner_agrees=1 where name=?", (name,))
     conn.commit()
     conn.close()
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("Select * from pwner where name=?", (name,))
+    r = cur.fetchone()
+    conn.commit()
+    conn.close()
+
+    obj = {}
+    test_cases = r['test_cases']
+    exploit = r['exploit']
+    obj['name'] = name
+    obj['repo'] = exploit
+    obj['token'] = r['pa_token']
+    obj['testrepo'] = test_cases
+    obj['username'] = exploit.split('.com/')[1].split('/')[0]
+    obj['testusername'] = exploit.split('.com/')[1].split('/')[0]
+    obj['testtoken'] = r['pa_token']
+
+    requests.post(nakadashi + "?name="+name, json=obj)
+
     return {}, 200 
 
 @app.route('/corporate_agrees')
