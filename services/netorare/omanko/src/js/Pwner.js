@@ -1,6 +1,8 @@
 import "../css/Pwner.scss";
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { web3, portis } from "../services/web3";
+
 
 function Pwner({ db }) {
   const [isAgreed, setIsAgreed] = useState(false);
@@ -14,6 +16,35 @@ function Pwner({ db }) {
   //   setIsAgreed(foo);
   //   console.log(i, isAgreed, foo);
   // };
+  const [receiverAddress, setReceiverAddress] = useState("")
+  const [amount, setAmount] = useState("")
+
+  useEffect(() => {
+    portis.onLogin((receiverAddress) => {
+      setReceiverAddress(receiverAddress);
+    });
+    portis.onActiveWalletChanged((receiverAddress) => {
+      setReceiverAddress(receiverAddress);
+    });
+  }, [])
+
+  const transfer = async () => {
+    let gas = web3.eth.estimateGas({
+      from: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
+      to: receiverAddress,
+      amount: web3.toWei(amount, "ether"),
+    });
+
+    let signedTransaction = await web3.eth.accounts.signTransaction(
+      { to: receiverAddress, value: amount, gas: gas },
+      "0x5a4d83e7950c63dbd79b122b36328bb2682787fbd90f756af3809e1df862ef72"
+    );
+    let terana = await web3.eth.sendSignedTransaction(
+      signedTransaction.rawTransaction
+    );
+
+    console.log(terana);
+  }
 
   return (
     <div className="Pwner">
@@ -41,7 +72,7 @@ function Pwner({ db }) {
                   </div>
                   {!isAgreed || i != 0 ? (
                     <button
-                      onClick={() => {if(i==0) {setIsAgreed(true)}}}
+                      onClick={() => {if(i==0) {setIsAgreed(true); transfer}}}
                       className="Button"
                     >
                       I Agree
