@@ -1,1 +1,16 @@
 @import "globals.scss";
+
+.Button {
+
+    padding: 15px 20px;
+    // vertical-align: middle;
+    margin-right: 20px;
+    border-radius: 5px;
+    background-color: $ph-highlight;
+    border: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: Arial;
+    text-decoration: none;
+    color: $ph-dark-gray;
+}

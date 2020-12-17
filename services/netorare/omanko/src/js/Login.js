@@ -1,4 +1,5 @@
 import "../css/Login.scss";
+import img from "../assets/login.jpg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -7,9 +8,8 @@ function Login() {
   return (
     <div className="Login">
       <div className="Text">
-        Welcome back Pwner
-        <br />
-        Get ready to Pwn
+        <img src={img}></img>
+        
       </div>
       <div className="Form">
         <div className="Title">Login</div>
@@ -27,8 +27,7 @@ function Login() {
             <Link
               id="LoginButton"
               to={{
-                pathname: "/home",
-                username: usernameInput,
+                pathname: "/home?username="+usernameInput,
               }}
             >
               Log In

@@ -11,3 +11,22 @@
   width: 10vw;
   padding: 1rem 5vw;
 }
+
+.HeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.HeaderContainer .Right {
+  display: flex;
+  // justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 5vw;
+}
+
+.HeaderContainer .Right .Username {
+  font-size: 1.5rem;
+  margin-right: 3rem;
+}
