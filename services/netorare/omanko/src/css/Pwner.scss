@@ -1,0 +1,31 @@
+@import "globals.scss";
+
+.Container {
+  margin: 0 20vw;
+  width: 60vw;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Container .Tile {
+  width: 25vw;
+  padding: 1rem;
+  background-color: $ph-bg-gray;
+  margin: 1rem;
+  border-radius: 4px;
+}
+
+.Container .TileHeader {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.Container .Entries {
+  margin-bottom: 3rem;
+}
+.Container .Entry {
+  margin-bottom: 0.5rem;
+}
