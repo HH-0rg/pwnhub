@@ -88,7 +88,7 @@ function Pwner({ db }) {
                   {(() => {
                     if (i == 0) {
                       console.log(entry)
-                      if (entry.pwner_agrees == "None") {
+                      if (!entry.pwner_agrees) {
                         return (
                           <button
                             onClick={() => {

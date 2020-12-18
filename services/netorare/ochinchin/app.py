@@ -42,13 +42,8 @@ def pwner_agrees():
     cur = conn.cursor()
     cur.execute("UPDATE pwner SET pwner_agrees=1 where name=?", (name,))
     conn.commit()
-    conn.close()
-
-    conn = get_db()
-    cur = conn.cursor()
     cur.execute("Select * from pwner where name=?", (name,))
     r = cur.fetchone()
-    conn.commit()
     conn.close()
 
     obj = {}
@@ -82,7 +77,7 @@ def passed():
         status = "True"
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("UPDATE pwner SET passed=? where name=?", (request.args.get('name'), status))
+    cur.execute("UPDATE pwner SET passed=? where name=?", (status, request.args.get('name')))
     conn.commit()
     conn.close()
     return {}, 200 

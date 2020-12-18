@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/docker/docker/api/types"
 	dockertypes "github.com/docker/docker/api/types"
@@ -189,7 +190,7 @@ func runTest(chaldir, testdir, expname, unameleet string) {
 	go cleanup(ctx, created.ID)
 
 	var success int
-	if execResult.StdOut == "true" && execResult.StdErr == "" && execResult.ExitCode == 0 {
+	if strings.Contains(execResult.StdOut, "true") {
 		success = 1
 	} else {
 		success = 0
