@@ -33,11 +33,12 @@ function Pwner({ db }) {
   };
 
   const updateDB = (name, test_cases) => {
-    axios.get(config.ochinchin + "pwner_agrees", {
-      params: {
-        name: name,
-      },
-    });
+    axios
+      .get(config.ochinchin + "pwner_agrees", {
+        params: {
+          name: name,
+        },
+      });
   };
 
   console.log(receiverAddress);
@@ -85,7 +86,7 @@ function Pwner({ db }) {
               )}
               {entry.test_cases != "None" && (
                 <>
-                  <div className="Entry"> Corporate has responded </div>
+                  <div className="Entry"> Corporate has responded with an amount of: {entry.amount} ETH </div>
                   <div className="Entries">
                     <div className="Entry">
                       Test Cases Repo:{" "}
@@ -120,7 +121,9 @@ function Pwner({ db }) {
                             <div className="Entries">
                               <div className="Entry">
                                 {" "}
-                                <span style={{fontSize: '20px'}}>Test Cases Pass Status: {entry.passed}</span>
+                                <span style={{ fontSize: "20px" }}>
+                                  Test Cases Pass Status: {entry.passed}
+                                </span>
                               </div>
                             </div>
                             {entry.passed == "True" && (

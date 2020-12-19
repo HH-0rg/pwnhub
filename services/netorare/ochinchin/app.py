@@ -30,7 +30,7 @@ def login():
     data = []
     for r in rv:
         data.append({'exploit': r['exploit'], 'gist': r['gist'], 'name': r['name'], 'pa_token': r['pa_token'], 'test_cases': str(r['test_cases']),
-        'pwner_agrees': r['pwner_agrees'], 'corporate_agrees': r['corporate_agrees'], 'passed': r['passed']})
+        'pwner_agrees': r['pwner_agrees'], 'corporate_agrees': r['corporate_agrees'], 'passed': r['passed'], 'amount': r['amount']})
     print(data)
     return jsonify(data)
 
@@ -57,7 +57,7 @@ def pwner_agrees():
     obj['testusername'] = exploit.split('.com/')[1].split('/')[0]
     obj['testtoken'] = r['pa_token']
 
-    requests.post(nakadashi + "?name="+name, json=obj)
+    # requests.post(nakadashi + "?name="+name, json=obj)
 
     return {}, 200 
 
@@ -65,7 +65,7 @@ def pwner_agrees():
 def corporate_agrees():
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("UPDATE pwner SET corporate_agrees=1, test_cases=? where name=?", (request.args.get('test_cases'), request.args.get('name'),))
+    cur.execute("UPDATE pwner SET corporate_agrees=1, amount=?, test_cases=? where name=?", (request.args.get('amount'), request.args.get('test_cases'), request.args.get('name'),))
     conn.commit()
     conn.close()
     return {}, 200 
@@ -90,7 +90,7 @@ def new():
     # cur = get_db().execute("Select * from users WHERE username=?", (username,))
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("Insert into pwner values(?,?,?,?,NULL, NULL, NULL, NULL)", (name, exploit, gist, paToken,))
+    cur.execute("Insert into pwner values(?,?,?,?,NULL, NULL, NULL, NULL, NULL)", (name, exploit, gist, paToken,))
     conn.commit()
     conn.close()
     # cur = get_db().execute("Insert into pwner values(?,?,?,?)", (name, exploit, gist, paToken,))

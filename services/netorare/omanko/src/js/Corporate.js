@@ -15,7 +15,9 @@ function Corporate({ db }) {
   const name = query.get("name");
 
   const [testCases, setTestCases] = useState("");
-  const [amount, setAmount] = useState("50000000000000000");
+  const [amount, setAmount] = useState("");
+
+  // const [amount, setAmount] = useState("50000000000000000");
   const [senderAddress, setSenderAddress] = useState("");
   const activeMen = () => {
     portis.showPortis();
@@ -35,6 +37,7 @@ function Corporate({ db }) {
       params: {
         name: name,
         test_cases: test_cases,
+        amount: amount,
       },
     });
   };
@@ -66,7 +69,7 @@ function Corporate({ db }) {
               placeholder="Test Case Repo"
               onChange={(e) => setTestCases(e.target.value)}
             />
-            <input type="text" placeholder="Amount" />
+            <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" />
             <div className="Buttons">
               <div
                 onClick={() => {
