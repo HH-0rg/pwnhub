@@ -68,66 +68,75 @@ function Pwner({ db }) {
           <>
             {console.log(i)}
             <div className="Tile">
-              <div className="TileHeader">Name: {entry.name}</div>
+              <div className="TileHeader">
+                <b>{entry.name}</b>
+              </div>
               {console.log(entry.name)}
               <div className="Entries">
-                <div className="Entry">Exploit: {entry.exploit}</div>
-                <div className="Entry">Setup Gist: {entry.gist}</div>
+                <div className="Entry">
+                  Exploit: <a href={entry.exploit}>{entry.exploit}</a>
+                </div>
+                <div className="Entry">
+                  Setup Gist: <a href={entry.gist}>{entry.gist}</a>
+                </div>
               </div>
               {entry.test_cases == "None" && (
-                <button className="Button">Copy Link</button>
+                <button className="BigButton">Copy Link</button>
               )}
               {entry.test_cases != "None" && (
                 <>
                   <div className="Entry"> Corporate has responded </div>
                   <div className="Entries">
                     <div className="Entry">
-                      Test Cases Repo: {entry.test_cases}
+                      Test Cases Repo:{" "}
+                      <a href={entry.test_cases}>{entry.test_cases}</a>
                     </div>
                   </div>
                   {(() => {
-                      console.log(entry)
-                      if (!entry.pwner_agrees) {
+                    console.log(entry);
+                    if (!entry.pwner_agrees) {
+                      return (
+                        <button
+                          onClick={() => {
+                            updateDB(entry.name);
+                          }}
+                          className="BigButton"
+                        >
+                          I Agree
+                        </button>
+                      );
+                    } else {
+                      if (!entry.passed) {
+                        console.log(entry.passed, "YE DEKH");
                         return (
-                          <button
-                            onClick={() => {
-                                updateDB(entry.name);
-                            }}
-                            className="Button"
-                          >
-                            I Agree
-                          </button>
+                          <div className="Entry">
+                            {" "}
+                            Waiting for response from Corporate/Service{" "}
+                          </div>
                         );
                       } else {
-                        if (!entry.passed) {
-                          console.log(entry.passed, "YE DEKH")
-                          return (
-                            <div className="Entry">
-                              {" "}
-                              Waiting for response from Corporate/Service{" "}
-                            </div>
-                          );
-                        } else {
-                          return (
-                            <>
+                        return (
+                          <>
+                            <div className="Entries">
                               <div className="Entry">
                                 {" "}
                                 Test Cases Pass Status: {entry.passed}
                               </div>
-                              {entry.passed == "True" && (
-                                <button
-                                  onClick={() => {
-                                    transfer();
-                                  }}
-                                  className="Button"
-                                >
-                                  Claim
-                                </button>
-                              )}
-                            </>
-                          );
-                        }
+                            </div>
+                            {entry.passed == "True" && (
+                              <button
+                                onClick={() => {
+                                  transfer();
+                                }}
+                                className="BigButton"
+                              >
+                                Claim
+                              </button>
+                            )}
+                          </>
+                        );
                       }
+                    }
                   })()}
                 </>
               )}

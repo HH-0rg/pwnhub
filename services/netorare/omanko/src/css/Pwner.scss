@@ -1,4 +1,5 @@
 @import "globals.scss";
+@import "Login.scss";
 
 .Container {
   margin: 0 20vw;
@@ -16,6 +17,9 @@
   background-color: $ph-bg-gray;
   margin: 1rem;
   border-radius: 4px;
+  // position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .Container .TileHeader {
@@ -24,8 +28,31 @@
 }
 
 .Container .Entries {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 .Container .Entry {
   margin-bottom: 0.5rem;
+}
+
+.BigButton {
+  // flex-grow: 1.7;
+
+  padding: 15px 20px;
+  // vertical-align: middle;
+  // margin-right: 20px;
+  border-radius: 5px;
+  background-color: $ph-highlight;
+  border: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Arial;
+  text-decoration: none;
+  color: $ph-dark-gray;
+  // position: absolute;
+  // bottom: 0;
+  margin-top: auto;
+}
+.Container .Tile a {
+  color: $ph-highlight;
+  text-decoration: none;
 }
