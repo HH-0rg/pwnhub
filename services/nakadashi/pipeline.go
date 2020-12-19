@@ -181,12 +181,31 @@ func runTest(chaldir, testdir, expname, unameleet string) {
 		log.Fatal(err)
 	}
 
+	execmd = []string{"chmod", "777", "/expl/setup.sh"}
+	_, err = DockerExec(ctx, created.ID, execmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	execmd = []string{"chmod", "777", "/test/setup.sh"}
+	_, err = DockerExec(ctx, created.ID, execmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	execmd = []string{"/expl/setup.sh"}
+	_, err = DockerExec(ctx, created.ID, execmd)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	execmd = []string{"/test/run.sh"}
 	execResult, err := DockerExec(ctx, created.ID, execmd)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(execResult)
+
 	go cleanup(ctx, created.ID)
 
 	var success int
