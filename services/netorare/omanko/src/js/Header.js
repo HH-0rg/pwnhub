@@ -11,18 +11,22 @@ function Header() {
   return (
     <div className="Header">
       <div className="HeaderContainer">
-        <img className="Logo" src={logo} />
+        {/* <img className="Logo" src={logo} /> */}
+        <div className="hub">
+          <span>Pwn</span>
+          <span>Hub</span>
+        </div>
         <div className="Right">
           {query.get("username") == "pwner" && (
             <>
-            <div className="Username">Welcome pwner</div>
-            <Link
-              to={{
-                pathname: "/form?username=pwner",
-              }}
-            >
-              <button className="Button">Create New Exploit</button>
-            </Link>
+              <div className="Username">Welcome pwner</div>
+              <Link
+                to={{
+                  pathname: "/form?username=pwner",
+                }}
+              >
+                <button className="Button">Create New Exploit</button>
+              </Link>
             </>
           )}
         </div>

@@ -41,7 +41,7 @@
   // vertical-align: middle;
   // margin-right: 20px;
   border-radius: 5px;
-  background-color: $ph-highlight;
+  background-color: $ph-button;
   border: 0;
   font-size: 1rem;
   font-weight: bold;
@@ -52,8 +52,9 @@
   // position: absolute;
   // bottom: 0;
   margin-top: auto;
+
 }
 .Container .Tile a {
-  color: $ph-highlight;
+  color: $ph-links;
   text-decoration: none;
 }

@@ -32,3 +32,25 @@
   font-size: 1.5rem;
   margin-right: 3rem;
 }
+
+
+.hub {
+  // display: block;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-left: 5rem;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+}
+
+.hub span:nth-child(2) {
+  background: $ph-button;
+  color: #000000;
+  border-radius: 0.3rem;
+  padding: 0.1rem 0.3rem 0.1rem 0.3rem;
+  display: inline-block;
+  margin-left:0.5rem;
+}
