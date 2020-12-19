@@ -13,6 +13,11 @@ function Home({ props }) {
   };
 
   const query = useQuery();
+  const [dbState, setDbState] = useState(0);
+
+  const handleReload = () => {
+    setDbState(dbState + 1);
+  };
 
   const location = useLocation();
   return (
@@ -26,10 +31,12 @@ function Home({ props }) {
           if (error) {
             return <Redirect to="/login" />;
           } else if (response !== null) {
-            {console.log("yaha aaya")}
+            {
+              console.log("yaha aaya");
+            }
             if (query.get("username") == "pwner") {
               // if (true) {
-              return <Pwner db={response.data} />;
+              return <Pwner dbState={dbState} handleReload={handleReload} db={response.data} />;
             } else {
               return <Corporate db={response.data} />;
             }

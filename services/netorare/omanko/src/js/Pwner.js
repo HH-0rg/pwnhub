@@ -5,7 +5,7 @@ import { web3, portis } from "../services/service";
 import axios from "axios";
 import config from "./config";
 
-function Pwner({ db }) {
+function Pwner({ db, handleReload }) {
   // const [isAgreed, setIsAgreed] = useState(0);
 
   // const handleFuckingShit = (i) => {
@@ -17,7 +17,8 @@ function Pwner({ db }) {
   //   console.log(i, isAgreed, foo);
   // };
   const [receiverAddress, setReceiverAddress] = useState("");
-  const [amount, setAmount] = useState("5000000000000000000");
+  // const [amount, setAmount] = useState(amoutn);
+  const [updateState, setUpdateState] = useState("");
 
   useEffect(() => {
     activeMen();
@@ -38,11 +39,14 @@ function Pwner({ db }) {
         params: {
           name: name,
         },
+      })
+      .then(() => {
+        handleReload();
       });
   };
 
   console.log(receiverAddress);
-  const transfer = async () => {
+  const transfer = async (amount) => {
     // let gas = web3.eth.estimateGas({
     //   from: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
     //   to: receiverAddress,
@@ -86,7 +90,13 @@ function Pwner({ db }) {
               )}
               {entry.test_cases != "None" && (
                 <>
-                  <div className="Entry"> Corporate has responded with an amount of: {entry.amount} ETH </div>
+                  <div className="Entry">
+                    {" "}
+                    Corporate has responded with an amount of: {
+                      entry.amount
+                    }{" "}
+                    ETH{" "}
+                  </div>
                   <div className="Entries">
                     <div className="Entry">
                       Test Cases Repo:{" "}
@@ -100,6 +110,7 @@ function Pwner({ db }) {
                         <button
                           onClick={() => {
                             updateDB(entry.name);
+                            entry.pwner_agrees = true
                           }}
                           className="BigButton"
                         >
@@ -129,7 +140,7 @@ function Pwner({ db }) {
                             {entry.passed == "True" && (
                               <button
                                 onClick={() => {
-                                  transfer();
+                                  transfer(entry.amount);
                                 }}
                                 className="BigButton"
                               >

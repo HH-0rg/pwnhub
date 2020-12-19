@@ -1,4 +1,6 @@
 import "../css/Corporate.scss";
+import "../css/Pwner.scss";
+
 import { useLocation } from "react-router-dom";
 import "../css/Login.scss";
 import { web3, portis } from "../services/service";
@@ -15,6 +17,7 @@ function Corporate({ db }) {
   const name = query.get("name");
 
   const [testCases, setTestCases] = useState("");
+  const [testState, setTestState] = useState(true);
   const [amount, setAmount] = useState("");
 
   // const [amount, setAmount] = useState("50000000000000000");
@@ -46,7 +49,7 @@ function Corporate({ db }) {
     let transaction = await web3.eth.sendTransaction({
       from: senderAddress,
       to: "0x2c9f1889b90e71ffb7bcdd8a4de79d162bc1d567",
-      value: amount,
+      value: amount * 1000000000000000000,
     });
 
     console.log(transaction);
@@ -62,6 +65,9 @@ function Corporate({ db }) {
             <div className="Entries">
               <div className="Entry">Claim Name: {name}</div>
               <div className="Entry">Pentester: pwner</div>
+              <div className="Entry">
+                  Setup Gist: <a style={{color: "#82d518", textDecoration: "none"}} href={'https://gist.github.com/Scar26/98dcf429f6b97732f53574aab6d2ab94'}>{"https://gist.github.com/Scar26/98dcf429f6b97732f53574aab6d2ab94"}</a>
+                </div>
             </div>
             <input
               type="text"
@@ -69,18 +75,30 @@ function Corporate({ db }) {
               placeholder="Test Case Repo"
               onChange={(e) => setTestCases(e.target.value)}
             />
-            <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Amount" />
-            <div className="Buttons">
-              <div
-                onClick={() => {
-                  updateDB(testCases);
-                  transfer();
-                }}
-                className="Button"
-              >
-                Respond
+            <input
+              type="text"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              placeholder="Amount"
+            />
+            {testState ? (
+              <div className="Buttons">
+                <div
+                  onClick={() => {
+                    updateDB(testCases);
+                    transfer();
+                    setTestState(false);
+                  }}
+                  className="Button"
+                >
+                  Respond
+                </div>
               </div>
-            </div>
+            ) : (
+              <div style={{ marginTop: "4rem" }} className="Entry">
+                Proceed for ether transaction...
+              </div>
+            )}
           </form>
         </div>
       </div>
