@@ -18,7 +18,7 @@ function Header() {
             <div className="Username">Welcome pwner</div>
             <Link
               to={{
-                pathname: "/form",
+                pathname: "/form?username=pwner",
               }}
             >
               <button className="Button">Create New Exploit</button>

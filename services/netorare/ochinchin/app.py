@@ -90,7 +90,7 @@ def new():
     # cur = get_db().execute("Select * from users WHERE username=?", (username,))
     conn = get_db()
     cur = conn.cursor()
-    cur.execute("Insert into pwner values(?,?,?,?,'')", (name, exploit, gist, paToken,))
+    cur.execute("Insert into pwner values(?,?,?,?,NULL, NULL, NULL, NULL)", (name, exploit, gist, paToken,))
     conn.commit()
     conn.close()
     # cur = get_db().execute("Insert into pwner values(?,?,?,?)", (name, exploit, gist, paToken,))

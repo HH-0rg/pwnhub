@@ -65,9 +65,9 @@ function Form() {
             onChange={handleChange("gist")}
             placeholder="Setup Gist"
           />
-          <div className="Buttons">
-            <div onClick={submitNew} className="Button">Submit</div>
-          </div>
+          {/* <div className=""> */}
+            <div onClick={submitNew} style={{textAlign:"center"}} className="BigButton">Submit</div>
+          {/* </div> */}
         </form>
       </div>
     </div>

@@ -120,7 +120,7 @@ function Pwner({ db }) {
                             <div className="Entries">
                               <div className="Entry">
                                 {" "}
-                                Test Cases Pass Status: {entry.passed}
+                                <span style={{fontSize: '20px'}}>Test Cases Pass Status: {entry.passed}</span>
                               </div>
                             </div>
                             {entry.passed == "True" && (
