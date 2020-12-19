@@ -86,15 +86,12 @@ function Pwner({ db }) {
                     </div>
                   </div>
                   {(() => {
-                    if (i == 0) {
                       console.log(entry)
-                      if (entry.pwner_agrees == "None") {
+                      if (!entry.pwner_agrees) {
                         return (
                           <button
                             onClick={() => {
-                              if (i == 0) {
                                 updateDB(entry.name);
-                              }
                             }}
                             className="Button"
                           >
@@ -131,7 +128,6 @@ function Pwner({ db }) {
                           );
                         }
                       }
-                    }
                   })()}
                 </>
               )}
