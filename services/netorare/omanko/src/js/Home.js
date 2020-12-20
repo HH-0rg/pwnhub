@@ -32,7 +32,7 @@ function Home({ props }) {
             return <Redirect to="/login" />;
           } else if (response !== null) {
             {
-              console.log("yaha aaya");
+              // console.log("");
             }
             if (query.get("username") == "pwner") {
               // if (true) {

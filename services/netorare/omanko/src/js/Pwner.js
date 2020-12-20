@@ -19,6 +19,7 @@ function Pwner({ db, handleReload }) {
   const [receiverAddress, setReceiverAddress] = useState("");
   // const [amount, setAmount] = useState(amoutn);
   const [updateState, setUpdateState] = useState("");
+  const [claimButton, setClaimButton] = useState(false);
 
   useEffect(() => {
     activeMen();
@@ -56,7 +57,7 @@ function Pwner({ db, handleReload }) {
     console.log(receiverAddress, amount);
 
     let signedTransaction = await web3.eth.accounts.signTransaction(
-      { to: receiverAddress, value: amount, gas: 200000 },
+      { to: receiverAddress, value: amount * 1000000000000000000, gas: 200000 },
       "0x5a4d83e7950c63dbd79b122b36328bb2682787fbd90f756af3809e1df862ef72"
     );
     let terana = await web3.eth.sendSignedTransaction(
@@ -110,7 +111,7 @@ function Pwner({ db, handleReload }) {
                         <button
                           onClick={() => {
                             updateDB(entry.name);
-                            entry.pwner_agrees = true
+                            entry.pwner_agrees = true;
                           }}
                           className="BigButton"
                         >
@@ -138,14 +139,21 @@ function Pwner({ db, handleReload }) {
                               </div>
                             </div>
                             {entry.passed == "True" && (
-                              <button
-                                onClick={() => {
-                                  transfer(entry.amount);
-                                }}
-                                className="BigButton"
-                              >
-                                Claim
-                              </button>
+                              <>
+                                {!claimButton ? (
+                                  <button
+                                    onClick={() => {
+                                      transfer(entry.amount);
+                                      setClaimButton(true);
+                                    }}
+                                    className="BigButton"
+                                  >
+                                    Claim
+                                  </button>
+                                ) : (
+                                  <div>Claim initiated</div>
+                                )}
+                              </>
                             )}
                           </>
                         );
