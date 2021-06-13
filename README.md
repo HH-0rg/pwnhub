@@ -3,6 +3,8 @@
 
 *Pwn them like you own them*
 
+Winner of Portis Blockchain Category at Hack InOut 7.0 (https://devfolio.co/submissions/pwnhub)
+
 ## What is PwnHub?
 
 
